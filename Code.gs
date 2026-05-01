@@ -35,3 +35,18 @@ function shareSlideAsPDF(){
   const ui = SlidesApp.getUi();
   ui.alert('Success', 'The PDF was posted to Google Chat!', ui.ButtonSet.OK);
 }
+
+function notifyAd(){
+  const chatWebhookUrl = PropertiesService.getScriptProperties().getProperty('GoogleChat');
+  const SAFE_WAY = "https://www.safeway.com/weeklyad?pushSection=weeklyAd"
+  const SMART_AND_FINAL = "https://www.smartandfinal.com/sm/pickup/rsid/522/circular"
+  const chatMessage = {
+    "text": `Weekly Ads \nSafe Way: ${SAFE_WAY} \nSmart and Final: ${SMART_AND_FINAL}`
+  };
+  const options = {
+    "method": "post",
+    "contentType": "application/json",
+    "payload": JSON.stringify(chatMessage)
+  };  
+  UrlFetchApp.fetch(chatWebhookUrl, options);
+}
